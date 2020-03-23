@@ -1,0 +1,21 @@
+{
+  "name": "pomodoro-discord-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Felix Spöttel <1682504+fspoettel@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index",
+    "lint": "standard",
+    "start": "node index",
+    "profile": "node --inspect index"
+  },
+  "dependencies": {
+    "date-fns": "^2.11.0",
+    "discord.js": "^12.0.2"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "standard": "^14.3.3"
+  }
+}
