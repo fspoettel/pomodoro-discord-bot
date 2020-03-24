@@ -3,6 +3,8 @@ const { Pomodoro } = require('../lib/pomodoro')
 const { bindScheduler } = require('./scheduler')
 const commandHandler = require('./commands')
 
+const { DISCORD_BOT_NAME } = process.env
+
 function makeMessageHandler (client, pomodoro) {
   return async function messageHandler (message) {
     try {
@@ -20,13 +22,14 @@ async function init () {
   try {
     client = await getClient()
   } catch (err) {
+    console.error(err)
     process.exit(1)
   }
 
   const pomodoro = new Pomodoro()
 
   try {
-    await setPresence(client, '@pomodoro help')
+    await setPresence(client, `@${DISCORD_BOT_NAME} help`)
   } catch (err) {
     console.error(err)
   }

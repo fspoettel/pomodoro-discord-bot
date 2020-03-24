@@ -1,4 +1,4 @@
-const { DISCORD_CLIENT_ID } = process.env
+const { DISCORD_BOT_NAME, DISCORD_CLIENT_ID } = process.env
 
 function isDirectMessage (message) {
   const { channel } = message
@@ -16,7 +16,7 @@ function isMentioned (message) {
 }
 
 function getContextPrefix (message) {
-  return isDirectMessage(message) ? '' : '@pomodoro '
+  return isDirectMessage(message) ? '' : `@${DISCORD_BOT_NAME} `
 }
 
 module.exports = {

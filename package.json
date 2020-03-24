@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "date-fns": "^2.11.0",
-    "discord.js": "^12.0.2"
+    "discord.js": "^12.0.2",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
     "standard": "^14.3.3"
   }
 }

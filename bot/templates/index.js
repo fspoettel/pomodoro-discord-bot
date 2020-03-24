@@ -1,7 +1,8 @@
+const { DISCORD_BOT_NAME } = process.env
 
 const templates = {
   help () {
-    return `I am a timer bot for the **pomodoro technique**. Issue commands by sending me a direct message or mention me via \`@pomodoro\`.
+    return `I am a timer bot for the **pomodoro technique**. Issue commands by sending me a direct message or mention me via \`@${DISCORD_BOT_NAME}\`.
 
     **Available Commands:**
     - \`start {minutes}\` a 🍅 of a given duration, by default \`start 25\`. I will send you a direct message once the 🍅 completes
