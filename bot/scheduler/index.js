@@ -1,4 +1,5 @@
 const { differenceInMinutes, toDate } = require('date-fns')
+const Sentry = require('@sentry/node')
 const { sendUserDm } = require('../../lib/discord')
 const { timerDone } = require('../templates')
 
@@ -16,9 +17,13 @@ async function scheduler (client, pomodoro) {
       .then(() => pomodoro.deletePomodoro(id))
   })
 
-  // @todo handle errors
-  await Promise.all(messagePromises)
+  try {
+    await Promise.all(messagePromises)
+  } catch (err) {
+    Sentry.captureException(err)
+  }
 
+  // @todo this might loop indef. if a user block the bot. How does it handle gateway outages?
   bindScheduler(client, pomodoro)
 }
 

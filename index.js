@@ -1,4 +1,8 @@
 require('dotenv').config()
-const { init } = require('./bot')
+const Sentry = require('@sentry/node')
+const { init: initBot } = require('./bot')
 
-init()
+const { SENTRY_DSN } = process.env
+
+Sentry.init({ dsn: SENTRY_DSN })
+initBot()

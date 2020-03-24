@@ -1,3 +1,4 @@
+const Sentry = require('@sentry/node')
 const { getClient, setPresence } = require('../lib/discord')
 const { Pomodoro } = require('../lib/pomodoro')
 const { bindScheduler } = require('./scheduler')
@@ -16,8 +17,7 @@ function makeMessageHandler (client, pomodoro) {
     try {
       await commandHandler(client, pomodoro, message)
     } catch (err) {
-      // @todo handle error
-      console.error(err)
+      Sentry.captureException(err)
     }
   }
 }
@@ -28,7 +28,7 @@ async function init () {
   try {
     client = await getClient()
   } catch (err) {
-    console.error(err)
+    Sentry.captureException(err)
     process.exit(1)
   }
 
@@ -37,7 +37,7 @@ async function init () {
   try {
     await setPresence(client, `@${DISCORD_BOT_NAME} help`)
   } catch (err) {
-    console.error(err)
+    Sentry.captureException(err)
   }
 
   client.on('message', makeMessageHandler(client, pomodoro))
