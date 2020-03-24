@@ -1,4 +1,4 @@
-const { hasProgress, start } = require('../templates')
+const { hasProgress, newTimer } = require('../templates')
 const { HasTimerError } = require('../../lib/pomodoro')
 const { getContextPrefix, parseDuration } = require('../utils')
 
@@ -16,8 +16,8 @@ async function startCommand ({
   const duration = parseDuration(str)
 
   try {
-    pomodoro.addPomodoro(userId, createdTimestamp, duration)
-    return message.reply(start(duration))
+    pomodoro.addPomodoro(userId, createdTimestamp, duration, 'interval')
+    return message.reply(newTimer(duration, 'interval'))
   } catch (err) {
     if (!(err instanceof HasTimerError)) throw err
     const { type } = err
