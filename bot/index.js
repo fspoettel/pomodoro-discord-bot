@@ -1,12 +1,18 @@
 const { getClient, setPresence } = require('../lib/discord')
 const { Pomodoro } = require('../lib/pomodoro')
 const { bindScheduler } = require('./scheduler')
+const { isFromBot, isDirectMessage, isMentioned } = require('./utils')
 const commandHandler = require('./commands')
 
 const { DISCORD_BOT_NAME } = process.env
 
 function makeMessageHandler (client, pomodoro) {
   return async function messageHandler (message) {
+    const shouldReact = !isFromBot(message) &&
+      (isDirectMessage(message) || isMentioned(message))
+
+    if (!shouldReact) return
+
     try {
       await commandHandler(client, pomodoro, message)
     } catch (err) {

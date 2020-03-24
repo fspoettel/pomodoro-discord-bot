@@ -1,15 +1,10 @@
 const { DISCORD_BOT_NAME } = process.env
 
 const templates = {
-  help () {
+  help (commandStr) {
     return `I am a timer bot for the **pomodoro technique**. Issue commands by sending me a direct message or mention me via \`@${DISCORD_BOT_NAME}\`.
 
-    **Available Commands:**
-    - \`start {minutes}\` a 🍅 of a given duration, by default \`start 25\`. I will send you a direct message once the 🍅 completes
-    - \`status\` displays the time left on the current 🍅
-    - \`stop\` a 🍅 currently in progress
-    - \`reset\` a 🍅. The custom duration specified for the previous 🍅 will be respected
-    - \`help\` display this help again`
+  **Available Commands**\n\n${commandStr}`
   },
   notFound (contextPrefix) {
     return `I did not understand that command. 😞 Type \`${contextPrefix}help\` to see a list of available commands.`
