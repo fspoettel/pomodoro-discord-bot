@@ -7,8 +7,8 @@ async function statusCommand ({ client, message, pomodoro, words }) {
   const contextPrefix = getContextPrefix(message)
 
   try {
-    const timeLeft = pomodoro.getTimeLeft(author.id)
-    return message.reply(status(timeLeft))
+    const { timeLeft, type } = pomodoro.getTimeLeft(author.id)
+    return message.reply(status(timeLeft, type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err
     return message.reply(noInProgress(contextPrefix))

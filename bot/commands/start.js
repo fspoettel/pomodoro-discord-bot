@@ -1,17 +1,6 @@
 const { hasProgress, start } = require('../templates')
 const { HasTimerError } = require('../../lib/pomodoro')
-const { getContextPrefix } = require('../utils')
-
-function isInt (num) {
-  return num && !Number.isNaN(Number.parseInt(num, 10))
-}
-
-function parseDuration (str, defaultVal = 25) {
-  if (!str) return defaultVal
-  const numChars = str.replace(/\D/gm, '')
-  if (isInt(numChars)) return Number.parseInt(numChars, 10)
-  return defaultVal
-}
+const { getContextPrefix, parseDuration } = require('../utils')
 
 async function startCommand ({
   client,
@@ -31,8 +20,9 @@ async function startCommand ({
     return message.reply(start(duration))
   } catch (err) {
     if (!(err instanceof HasTimerError)) throw err
+    const { type } = err
     const contextPrefix = getContextPrefix(message)
-    return message.reply(hasProgress(contextPrefix))
+    return message.reply(hasProgress(contextPrefix, type))
   }
 }
 

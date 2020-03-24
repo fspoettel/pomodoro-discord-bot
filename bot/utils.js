@@ -19,9 +19,26 @@ function getContextPrefix (message) {
   return isDirectMessage(message) ? '' : `@${DISCORD_BOT_NAME} `
 }
 
+function isInt (num) {
+  return num && !Number.isNaN(Number.parseInt(num, 10))
+}
+
+function parseDuration (str, defaultVal = 25) {
+  if (!str) return defaultVal
+  const numChars = str.replace(/\D/gm, '')
+  if (isInt(numChars)) return Number.parseInt(numChars, 10)
+  return defaultVal
+}
+
+function getTypeIcon (type) {
+  return type === 'break' ? '☕' : '🍅'
+}
+
 module.exports = {
   getContextPrefix,
+  getTypeIcon,
   isDirectMessage,
   isFromBot,
-  isMentioned
+  isMentioned,
+  parseDuration
 }

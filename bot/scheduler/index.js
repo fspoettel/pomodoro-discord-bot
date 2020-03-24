@@ -1,7 +1,7 @@
 const { differenceInMinutes, toDate } = require('date-fns')
 const Sentry = require('@sentry/node')
 const { sendUserDm } = require('../../lib/discord')
-const { timerDone } = require('../templates')
+const { breakDone, timerDone } = require('../templates')
 
 let schedule
 
@@ -9,11 +9,13 @@ async function scheduler (client, pomodoro) {
   const overduePomodoros = pomodoro.getOverduePomodoros()
 
   const messagePromises = overduePomodoros.map(timer => {
-    const { finishesAt, id, startedAt } = timer
+    const { finishesAt, id, isBreak, startedAt } = timer
 
     const minDiff = differenceInMinutes(toDate(finishesAt), toDate(startedAt))
 
-    return sendUserDm(client, id, timerDone(minDiff))
+    const msgCreator = isBreak ? breakDone : timerDone
+
+    return sendUserDm(client, id, msgCreator(minDiff))
       .then(() => pomodoro.deletePomodoro(id))
   })
 

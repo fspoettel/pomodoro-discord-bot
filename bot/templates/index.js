@@ -1,3 +1,5 @@
+const { getTypeIcon } = require('../utils')
+
 const { DISCORD_BOT_NAME } = process.env
 
 const templates = {
@@ -10,25 +12,34 @@ const templates = {
     return `I did not understand that command. 😞 Type \`${contextPrefix}help\` to see a list of available commands.`
   },
   noInProgress (contextPrefix) {
-    return `I did not find a 🍅 in progress for you. Start a new one by typing \`${contextPrefix}start\``
+    return `I did not find a 🍅 or ☕ in progress for you. Start a new 🍅 by typing \`${contextPrefix}start\``
   },
-  hasProgress (contextPrefix) {
-    return `you have a 🍅 in progress. Please use \`${contextPrefix}stop\` to finish the current timer before starting a new one. You can also use \`${contextPrefix} reset\` to reset the current 🍅`
+  hasProgress (contextPrefix, type) {
+    const typeIcon = getTypeIcon(type)
+    return `you have a ${typeIcon} in progress. Please use \`${contextPrefix}complete\` to finish the current {} before starting a new one. You can also use \`${contextPrefix}restart\` to reset the current ${typeIcon}`
   },
-  reset (duration) {
-    return `I reset your **${duration} min** 🍅. I will message you once the new timer completes`
+  reset (duration, type) {
+    const typeIcon = getTypeIcon(type)
+    return `I reset your **${duration} min** ${typeIcon}. I will message you once the new ${typeIcon} completes`
+  },
+  break (duration) {
+    return `I started a **${duration} min** ☕ for you. I will message you once the break completes`
   },
   start (duration) {
-    return `I started a **${duration} min** 🍅 for you. I will message you once the timer completes`
+    return `I started a **${duration} min** 🍅 for you. I will message you once the interval completes`
   },
-  status (timeLeft) {
-    return `There are **${timeLeft}** minutes left on your current 🍅`
+  status (timeLeft, type) {
+    const typeIcon = getTypeIcon(type)
+    return `There are **${timeLeft}** minutes left on your current ${typeIcon}`
   },
-  stop (contextPrefix) {
-    return `I stopped your 🍅. You can start another one any time by typing \`${contextPrefix}start\``
+  stop (contextPrefix, type) {
+    return `I stopped your ${type === 'break' ? '☕' : '🍅'}. You can start another one any time by typing \`${contextPrefix}start\``
+  },
+  breakDone (duration) {
+    return `Your **${duration} min** break has finished. Type \`start\` to start a new 🍅`
   },
   timerDone (duration) {
-    return `Your **${duration} min** 🍅 has finished. Time for a break ☕`
+    return `Your **${duration} min** 🍅 has finished. Type \`short\` or \`long\` to start a break ☕`
   }
 }
 

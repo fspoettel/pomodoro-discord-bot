@@ -11,8 +11,8 @@ async function resetCommand ({
   const { author, createdTimestamp } = message
 
   try {
-    const duration = pomodoro.resetPomodoro(author.id, createdTimestamp)
-    return message.reply(reset(duration))
+    const { duration, type } = pomodoro.resetPomodoro(author.id, createdTimestamp)
+    return message.reply(reset(duration, type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err
     const contextPrefix = getContextPrefix(message)
