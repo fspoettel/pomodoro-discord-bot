@@ -8,43 +8,43 @@ const statusCommand = require('./status')
 
 const COMMANDS = [
   {
-    docs: '`start {minutes}` a 🍅 of a given duration, by default `start 25`. I will send you a direct message once the 🍅 completes.',
+    docs: '`start {min}` a 🍅 of a given duration, by default `start 25`. I will send you a direct message once it completes',
     handler: startCommand,
     keyword: 'start',
     shortcuts: ['s', 'new']
   },
   {
-    docs: '`complete` a 🍅 or break in progress.',
-    handler: stopCommand,
-    keyword: 'complete',
-    shortcuts: ['c', 'stop']
-  },
-  {
-    docs: '`restart` a 🍅 or break in progress. The custom duration specified for the previous 🍅 will be respected.',
-    handler: resetCommand,
-    keyword: 'restart',
-    shortcuts: ['r', 'reset']
-  },
-  {
-    docs: '`timeleft` displays the time left on the current 🍅.',
-    handler: statusCommand,
-    keyword: 'timeleft',
-    shortcuts: ['t', 'status']
-  },
-  {
-    docs: '`shortbreak {minutes}` starts a short break, by default 5 minutes long. I will send you a message once the break completes.',
+    docs: '`shortbreak {min}` starts a short ☕. It is `5` minutes long by default. I will send you a message once it completes',
     handler: makeBreakCommand(5),
     keyword: 'shortbreak',
     shortcuts: ['sb', 'short', 'break']
   },
   {
-    docs: '`longbreak {minutes}` starts a long break, by default 30 minutes long. I will send you a message once the break completes.',
+    docs: '`longbreak {min}` starts a long ☕. It is `30` minutes long by default. I will send you a message once it completes',
     handler: makeBreakCommand(30),
     keyword: 'longbreak',
     shortcuts: ['lb', 'long']
   },
   {
-    docs: '`help` display this help again.',
+    docs: '`complete` a 🍅 or ☕ in progress',
+    handler: stopCommand,
+    keyword: 'complete',
+    shortcuts: ['c', 'stop']
+  },
+  {
+    docs: '`restart` a 🍅 or ☕ in progress',
+    handler: resetCommand,
+    keyword: 'restart',
+    shortcuts: ['r', 'reset']
+  },
+  {
+    docs: '`timeleft` displays the time left on the current 🍅 or ☕',
+    handler: statusCommand,
+    keyword: 'timeleft',
+    shortcuts: ['t', 'status']
+  },
+  {
+    docs: '`help` display this help again',
     handler: helpCommand,
     keyword: 'help',
     shortcuts: ['h', 'about']

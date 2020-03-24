@@ -8,7 +8,7 @@ async function helpCommand ({
 }) {
   const template = commands
     .map(({ docs, keyword, shortcuts }) =>
-      `- ${docs} Shortcuts: \`${shortcuts.join(', ')}\``
+      `- ${docs}\n Shortcuts: \`${shortcuts.join(', ')}\``
     )
     .join('\n')
 
