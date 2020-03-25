@@ -14,10 +14,10 @@ const COMMANDS = [
     shortcuts: ['s', 'new']
   },
   {
-    docs: '`shortbreak {min}` starts a short ☕. It is `5` minutes long by default. I will send you a message once it completes',
+    docs: '`break {min}` starts a ☕. It is `5` minutes long by default. I will send you a message once it completes',
     handler: makeBreakCommand(5),
     keyword: 'shortbreak',
-    shortcuts: ['sb', 'short', 'break']
+    shortcuts: ['b', 'short', 'shortbreak']
   },
   {
     docs: '`longbreak {min}` starts a long ☕. It is `30` minutes long by default. I will send you a message once it completes',
