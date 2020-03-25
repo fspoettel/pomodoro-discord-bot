@@ -65,7 +65,7 @@ async function commandHandler (client, pomodoro, message) {
   const { content } = message
 
   const words = content
-    .replace(/<@!.*?>/gm, '')
+    .replace(/<@!?.*?>/gm, '')
     .trim()
     .toLowerCase()
     .split(/\s/)
