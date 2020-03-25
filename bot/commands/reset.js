@@ -8,10 +8,10 @@ async function resetCommand ({
   pomodoro,
   words
 }) {
-  const { author, createdTimestamp } = message
+  const { author } = message
 
   try {
-    const { duration, type } = pomodoro.resetPomodoro(author.id, createdTimestamp)
+    const { duration, type } = await pomodoro.resetPomodoro(author.id)
     return message.reply(reset(duration, type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err

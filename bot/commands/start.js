@@ -8,7 +8,7 @@ async function startCommand ({
   pomodoro,
   words
 }) {
-  const { author, createdTimestamp } = message
+  const { author } = message
   const { id: userId } = author
 
   const [, str] = words
@@ -16,7 +16,7 @@ async function startCommand ({
   const duration = parseDuration(str)
 
   try {
-    pomodoro.addPomodoro(userId, createdTimestamp, duration, 'interval')
+    await pomodoro.addPomodoro(userId, duration, 'interval')
     return message.reply(newTimer(duration, 'interval'))
   } catch (err) {
     if (!(err instanceof HasTimerError)) throw err

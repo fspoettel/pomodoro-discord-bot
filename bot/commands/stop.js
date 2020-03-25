@@ -12,7 +12,7 @@ async function stopCommand ({
   const contextPrefix = getContextPrefix(message)
 
   try {
-    const { type } = pomodoro.stopPomodoro(author.id)
+    const { type } = await pomodoro.stopPomodoro(author.id)
     return message.reply(stop(contextPrefix, type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err

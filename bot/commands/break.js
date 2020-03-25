@@ -9,7 +9,7 @@ function makeBreakCommand (defaultDuration) {
     pomodoro,
     words
   }) {
-    const { author, createdTimestamp } = message
+    const { author } = message
     const { id: userId } = author
 
     const [, str] = words
@@ -17,7 +17,7 @@ function makeBreakCommand (defaultDuration) {
     const duration = parseDuration(str, defaultDuration)
 
     try {
-      pomodoro.addPomodoro(userId, createdTimestamp, duration, 'break')
+      await pomodoro.addPomodoro(userId, duration, 'break')
       return message.reply(newTimer(duration, 'break'))
     } catch (err) {
       if (!(err instanceof HasTimerError)) throw err

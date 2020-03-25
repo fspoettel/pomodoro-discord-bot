@@ -6,17 +6,21 @@ const { breakDone, timerDone } = require('../templates')
 let schedule
 
 async function scheduler (client, pomodoro) {
-  const overduePomodoros = pomodoro.getOverduePomodoros()
+  let finishedPomodoros = []
 
-  const messagePromises = overduePomodoros.map(timer => {
-    const { finishesAt, id, isBreak, startedAt } = timer
+  try {
+    finishedPomodoros = await pomodoro.getFinishedPomodoros()
+  } catch (err) {
+    Sentry.captureException(err)
+  }
 
+  const messagePromises = finishedPomodoros.map(timer => {
+    const { finishesAt, userId, type, startedAt } = timer
+
+    const msgCreator = type === 'break' ? breakDone : timerDone
     const minDiff = differenceInMinutes(toDate(finishesAt), toDate(startedAt))
 
-    const msgCreator = isBreak ? breakDone : timerDone
-
-    return sendUserDm(client, id, msgCreator(minDiff))
-      .then(() => pomodoro.deletePomodoro(id))
+    return sendUserDm(client, userId, msgCreator(minDiff))
   })
 
   try {
@@ -25,14 +29,14 @@ async function scheduler (client, pomodoro) {
     Sentry.captureException(err)
   }
 
-  // @todo this might loop indef. if a user block the bot. How does it handle gateway outages?
+  // @todo this might loop indef. if a user blocks the bot. How does it handle gateway outages?
   bindScheduler(client, pomodoro)
 }
 
 function bindScheduler (client, pomodoro) {
   schedule = setTimeout(() => {
     scheduler(client, pomodoro)
-  })
+  }, 300)
 }
 
 function unbindScheduler () {

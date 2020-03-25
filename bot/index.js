@@ -23,15 +23,8 @@ function makeMessageHandler (client, pomodoro) {
 }
 
 async function init () {
-  let client
-
-  try {
-    client = await getClient()
-  } catch (err) {
-    Sentry.captureException(err)
-    process.exit(1)
-  }
-
+  // Top-level init() will exit and log if this fails
+  const client = await getClient()
   const pomodoro = new Pomodoro()
 
   try {
