@@ -1,13 +1,13 @@
 const { noInProgress, status } = require('../templates')
-const { NoTimerError } = require('../../lib/pomodoro')
+const { getTimeLeft, NoTimerError } = require('../../lib/pomodoro')
 const { getContextPrefix } = require('../utils')
 
-async function statusCommand ({ client, message, pomodoro, words }) {
+async function statusCommand ({ client, message, words }) {
   const { author } = message
   const contextPrefix = getContextPrefix(message)
 
   try {
-    const { timeLeft, type } = await pomodoro.getTimeLeft(author.id)
+    const { timeLeft, type } = await getTimeLeft(author.id)
     return message.reply(status(timeLeft, type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err

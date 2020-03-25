@@ -1,13 +1,12 @@
 const Sentry = require('@sentry/node')
 const { getClient, setPresence } = require('../lib/discord')
-const { Pomodoro } = require('../lib/pomodoro')
 const { bindScheduler } = require('./scheduler')
 const { isFromBot, isDirectMessage, isMentioned } = require('./utils')
 const commandHandler = require('./commands')
 
 const { DISCORD_BOT_NAME } = process.env
 
-function makeMessageHandler (client, pomodoro) {
+function makeMessageHandler (client) {
   return async function messageHandler (message) {
     const shouldReact = !isFromBot(message) &&
       (isDirectMessage(message) || isMentioned(message))
@@ -15,7 +14,7 @@ function makeMessageHandler (client, pomodoro) {
     if (!shouldReact) return
 
     try {
-      await commandHandler(client, pomodoro, message)
+      await commandHandler(client, message)
     } catch (err) {
       Sentry.captureException(err)
     }
@@ -25,7 +24,6 @@ function makeMessageHandler (client, pomodoro) {
 async function init () {
   // Top-level init() will exit and log if this fails
   const client = await getClient()
-  const pomodoro = new Pomodoro()
 
   try {
     await setPresence(client, `@${DISCORD_BOT_NAME} help`)
@@ -33,8 +31,8 @@ async function init () {
     Sentry.captureException(err)
   }
 
-  client.on('message', makeMessageHandler(client, pomodoro))
-  bindScheduler(client, pomodoro)
+  client.on('message', makeMessageHandler(client))
+  bindScheduler(client)
 }
 
 module.exports = { init }

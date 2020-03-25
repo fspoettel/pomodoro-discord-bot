@@ -61,7 +61,7 @@ function matchCommandHandler (cmdStr) {
   return command.handler
 }
 
-async function commandHandler (client, pomodoro, message) {
+async function commandHandler (client, message) {
   const { content } = message
 
   const words = content
@@ -77,7 +77,6 @@ async function commandHandler (client, pomodoro, message) {
     client,
     commands: COMMANDS,
     message,
-    pomodoro,
     words
   }
 

@@ -1,15 +1,16 @@
 const { differenceInMinutes, toDate } = require('date-fns')
 const Sentry = require('@sentry/node')
+const { getFinishedPomodoros } = require('../../lib/pomodoro')
 const { sendUserDm } = require('../../lib/discord')
 const { breakDone, timerDone } = require('../templates')
 
 let schedule
 
-async function scheduler (client, pomodoro) {
+async function scheduler (client) {
   let finishedPomodoros = []
 
   try {
-    finishedPomodoros = await pomodoro.getFinishedPomodoros()
+    finishedPomodoros = await getFinishedPomodoros()
   } catch (err) {
     Sentry.captureException(err)
   }
@@ -30,12 +31,12 @@ async function scheduler (client, pomodoro) {
   }
 
   // @todo this might loop indef. if a user blocks the bot. How does it handle gateway outages?
-  bindScheduler(client, pomodoro)
+  bindScheduler(client)
 }
 
-function bindScheduler (client, pomodoro) {
+function bindScheduler (client) {
   schedule = setTimeout(() => {
-    scheduler(client, pomodoro)
+    scheduler(client)
   }, 300)
 }
 

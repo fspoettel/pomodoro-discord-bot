@@ -12,11 +12,9 @@ const { SENTRY_DSN } = process.env;
 
   try {
     await initBot()
-
-    const count = await withDb(async function (db, client) {
-      const timers = await db.collection('timers').estimatedDocumentCount()
-      return timers
-    })
+    const count = await withDb((db, client) =>
+      db.collection('timers').estimatedDocumentCount()
+    )
 
     console.log(`Timers in database: ${count}`)
   } catch (err) {
