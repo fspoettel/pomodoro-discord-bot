@@ -1,4 +1,5 @@
-const { differenceInMinutes, toDate } = require('date-fns')
+const { differenceInMilliseconds } = require('date-fns')
+const { formatDuration } = require('../utils')
 const { getFinishedPomodoros } = require('../../lib/pomodoro')
 const { sendUserDm } = require('../../lib/discord')
 const { breakDone, timerDone } = require('../templates')
@@ -15,11 +16,11 @@ async function findAndHandleFinishedPomodoros (client) {
     } = timer
 
     const isBreak = type === 'break'
-    const minDiff = differenceInMinutes(toDate(finishesAt), toDate(startedAt))
+    const diff = differenceInMilliseconds(finishesAt, startedAt)
 
     const msgCreator = isBreak ? breakDone : timerDone
 
-    return sendUserDm(client, userId, msgCreator(minDiff))
+    return sendUserDm(client, userId, msgCreator(formatDuration(diff)))
   })
 
   return Promise.all(messagePromises)

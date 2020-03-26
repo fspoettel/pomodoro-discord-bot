@@ -1,6 +1,6 @@
 const { noInProgress, status } = require('../templates')
 const { getTimeLeft, NoTimerError } = require('../../lib/pomodoro')
-const { getContextPrefix } = require('../utils')
+const { formatDuration, getContextPrefix } = require('../utils')
 
 async function statusCommand ({ client, message, words }) {
   const { author } = message
@@ -8,7 +8,7 @@ async function statusCommand ({ client, message, words }) {
 
   try {
     const { timeLeft, type } = await getTimeLeft(author.id)
-    return message.reply(status(timeLeft, type))
+    return message.reply(status(formatDuration(timeLeft), type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err
     return message.reply(noInProgress(contextPrefix))

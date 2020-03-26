@@ -1,4 +1,4 @@
-const { getTypeIcon } = require('../utils')
+const { formatDuration, getTypeIcon } = require('../utils')
 
 const { DISCORD_BOT_NAME } = process.env
 
@@ -23,28 +23,39 @@ const templates = {
   },
   reset (duration, type) {
     const typeIcon = getTypeIcon(type)
-    return `I reset your **${duration}min** ${typeIcon}. I will message you once it completes`
+    return `I restarted your **${formatDuration(duration)}** ${typeIcon}. I will message you once it completes`
   },
   newTimer (duration, type) {
     const typeIcon = getTypeIcon(type)
-    return `I started a **${duration}min** ${typeIcon} for you. I will message you once it completes`
+    const durationStr = `${duration}`
+    // @todo use `formatDuration` here
+    return `I started a **${durationStr.length === 1 ? '0' : ''}${durationStr}min** ${typeIcon} for you. I will message you once it completes`
   },
   status (timeLeft, type) {
     const typeIcon = getTypeIcon(type)
-    return `There are **${timeLeft}** minutes left on your current ${typeIcon}`
+    return `There are **${timeLeft}** left on your current ${typeIcon}`
   },
-  stats ({ break: breaks, interval }, isToday) {
-    return `you have completed ${interval} 🍅 and ${breaks} ☕ ${isToday ? 'today' : 'so far'}`
+  stats ({
+    count: {
+      break: breakCount,
+      interval: intervalCount
+    },
+    duration: {
+      break: breakDuration,
+      interval: intervalDuration
+    }
+  }, isToday) {
+    return `you have completed **${intervalCount}** 🍅 _(${formatDuration(intervalDuration)})_ and **${breakCount}** ☕ _(${formatDuration(breakDuration)})_ ${isToday ? 'so far today' : 'in total'}`
   },
   stop (contextPrefix, type) {
     const typeIcon = getTypeIcon(type)
     return `I stopped your ${typeIcon}. You can start a new 🍅 any time by typing \`${contextPrefix}start\``
   },
   breakDone (duration) {
-    return `Your **${duration} min** ☕ has finished. Type \`start\` to start a new 🍅`
+    return `Your **${duration}** ☕ has finished. Type \`start\` to start a new 🍅`
   },
   timerDone (duration) {
-    return `Your **${duration} min** 🍅 has finished. Type \`short\` or \`long\` to start a break ☕`
+    return `Your **${duration}** 🍅 has finished. Type \`short\` or \`long\` to start a break ☕`
   }
 }
 
