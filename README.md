@@ -5,10 +5,9 @@
   <h1>pomodoro-discord-bot</h1>
 </div>
 
-This Discord bot allows you to use and manage [🍅 pomodoro timers](https://en.wikipedia.org/wiki/Pomodoro_Technique) within  channels and direct messages. It is written in Node.js and uses MongoDB as database layer for timers. The bot currently runs on Heroku.
+Discord bot that enables you to use and manage [🍅 pomodoro timers](https://en.wikipedia.org/wiki/Pomodoro_Technique) within channels and direct messages. It is written in Node.js and uses MongoDB as database layer. The bot currently runs on Heroku.
 
 ## Usage
 
 1. [Invite the bot to your server](https://discordapp.com/oauth2/authorize?client_id=689784623592505372&scope=bot&permissions=51264)
 2. Direct message `help` to user `pom#2785` or ping via `@pom help` to see a list of commands and usage instructions
-
