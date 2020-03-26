@@ -23,15 +23,18 @@ const templates = {
   },
   reset (duration, type) {
     const typeIcon = getTypeIcon(type)
-    return `I reset your **${duration} min** ${typeIcon}. I will message you once it completes`
+    return `I reset your **${duration}min** ${typeIcon}. I will message you once it completes`
   },
   newTimer (duration, type) {
     const typeIcon = getTypeIcon(type)
-    return `I started a **${duration} min** ${typeIcon} for you. I will message you once it completes`
+    return `I started a **${duration}min** ${typeIcon} for you. I will message you once it completes`
   },
   status (timeLeft, type) {
     const typeIcon = getTypeIcon(type)
     return `There are **${timeLeft}** minutes left on your current ${typeIcon}`
+  },
+  stats ({ break: breaks, interval }, isToday) {
+    return `you have completed ${interval} 🍅 and ${breaks} ☕ ${isToday ? 'today' : 'so far'}`
   },
   stop (contextPrefix, type) {
     const typeIcon = getTypeIcon(type)

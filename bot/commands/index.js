@@ -1,11 +1,12 @@
-const makeBreakCommand = require('./break')
 const helpCommand = require('./help')
 const issueCommand = require('./issue')
+const makeBreakCommand = require('./break')
 const notFoundCommand = require('./notFound')
-const startCommand = require('./start')
-const stopCommand = require('./stop')
 const resetCommand = require('./reset')
+const startCommand = require('./start')
+const statsCommand = require('./stats')
 const statusCommand = require('./status')
+const stopCommand = require('./stop')
 
 const COMMANDS = [
   {
@@ -43,6 +44,12 @@ const COMMANDS = [
     handler: statusCommand,
     keyword: 'timeleft',
     shortcuts: ['t', 'status']
+  },
+  {
+    docs: '`stats {today|total}` displays the amount of 🍅 and ☕ you have completed. By default, `total` stats will be shown',
+    handler: statsCommand,
+    keyword: 'stats',
+    shortcuts: []
   },
   {
     docs: '`help` displays this help again',
