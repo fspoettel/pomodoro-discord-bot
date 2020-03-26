@@ -1,5 +1,6 @@
 const makeBreakCommand = require('./break')
 const helpCommand = require('./help')
+const issueCommand = require('./issue')
 const notFoundCommand = require('./notFound')
 const startCommand = require('./start')
 const stopCommand = require('./stop')
@@ -44,10 +45,16 @@ const COMMANDS = [
     shortcuts: ['t', 'status']
   },
   {
-    docs: '`help` display this help again',
+    docs: '`help` displays this help again',
     handler: helpCommand,
     keyword: 'help',
     shortcuts: ['h', 'about']
+  },
+  {
+    docs: '`issue` displays a link to the issue tracker for this bot',
+    handler: issueCommand,
+    keyword: 'issue',
+    shortcuts: []
   }
 ]
 
