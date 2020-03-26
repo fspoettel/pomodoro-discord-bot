@@ -4,7 +4,7 @@ const { DISCORD_BOT_NAME } = process.env
 
 const templates = {
   clearStats (isToday) {
-    return `Time for a fresh start! I cleared ${isToday ? 'your daily' : 'all your'} stats.`
+    return `Time for a fresh start! I cleared ${isToday ? 'your daily' : 'all your'} stats`
   },
   help (commandStr) {
     return `I am a timer bot for the **pomodoro technique**. Issue commands by sending me a direct message or mention me via \`@${DISCORD_BOT_NAME}\`.
