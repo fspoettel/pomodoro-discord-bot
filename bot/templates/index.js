@@ -18,6 +18,9 @@ const templates = {
     const typeIcon = getTypeIcon(type)
     return `you have a ${typeIcon} in progress. Please use \`${contextPrefix}complete\` to finish the current ${typeIcon} before starting a new one. You can also use \`${contextPrefix}restart\` to restart it`
   },
+  issue () {
+    return 'you can report bugs and request features at **https://github.com/fspoettel/pomodoro-discord-bot/issues**'
+  },
   reset (duration, type) {
     const typeIcon = getTypeIcon(type)
     return `I reset your **${duration} min** ${typeIcon}. I will message you once it completes`

@@ -7,9 +7,11 @@ async function helpCommand ({
   words
 }) {
   const template = commands
-    .map(({ docs, keyword, shortcuts }) =>
-      `- ${docs}\n _Shortcuts:_ ${shortcuts.map(s => `\`${s}\``).join(', ')}\n`
-    )
+    .map(({ docs, keyword, shortcuts }) => {
+      return shortcuts.length > 0
+        ? `${docs}\n_Shortcuts:_ ${shortcuts.map(s => `\`${s}\``).join(', ')}\n`
+        : docs
+    })
     .join('\n')
 
   return message.reply(help(template))
