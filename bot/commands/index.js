@@ -1,3 +1,4 @@
+const clearStatsCommand = require('./clearStats')
 const helpCommand = require('./help')
 const issueCommand = require('./issue')
 const makeBreakCommand = require('./break')
@@ -46,9 +47,15 @@ const COMMANDS = [
     shortcuts: ['t', 'status']
   },
   {
-    docs: '`stats {today|total}` displays the amount of 🍅 and ☕ you have completed. By default, `total` stats will be shown',
+    docs: '`stats {today|all}` displays the amount of 🍅 and ☕ you have completed. By default, `all` stats will be shown',
     handler: statsCommand,
     keyword: 'stats',
+    shortcuts: []
+  },
+  {
+    docs: '`clearstats {today|all}` clears your stats. By default `all` stats will be cleared. This does not affect  🍅 or ☕ that are currently in progress',
+    handler: clearStatsCommand,
+    keyword: 'clearstats',
     shortcuts: []
   },
   {
