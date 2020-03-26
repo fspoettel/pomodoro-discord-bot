@@ -1,31 +1,11 @@
-const { differenceInMinutes, toDate } = require('date-fns')
 const Sentry = require('@sentry/node')
-const { getFinishedPomodoros } = require('../../lib/pomodoro')
-const { sendUserDm } = require('../../lib/discord')
-const { breakDone, timerDone } = require('../templates')
+const findAndHandleFinishedPomodoros = require('./timers')
 
 let schedule
 
 async function scheduler (client) {
-  let finishedPomodoros = []
-
   try {
-    finishedPomodoros = await getFinishedPomodoros()
-  } catch (err) {
-    Sentry.captureException(err)
-  }
-
-  const messagePromises = finishedPomodoros.map(timer => {
-    const { finishesAt, userId, type, startedAt } = timer
-
-    const msgCreator = type === 'break' ? breakDone : timerDone
-    const minDiff = differenceInMinutes(toDate(finishesAt), toDate(startedAt))
-
-    return sendUserDm(client, userId, msgCreator(minDiff))
-  })
-
-  try {
-    await Promise.all(messagePromises)
+    await findAndHandleFinishedPomodoros(client)
   } catch (err) {
     Sentry.captureException(err)
   }
