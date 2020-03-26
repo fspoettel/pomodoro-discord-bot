@@ -10,7 +10,7 @@ async function helpCommand ({
     .map(({ docs, keyword, shortcuts }) => {
       return shortcuts.length > 0
         ? `${docs}\n_Shortcuts:_ ${shortcuts.map(s => `\`${s}\``).join(', ')}\n`
-        : docs
+        : `${docs}\n`
     })
     .join('\n')
 
