@@ -8,16 +8,15 @@ async function scheduler (client) {
     await findAndHandleFinishedPomodoros(client)
   } catch (err) {
     Sentry.captureException(err)
+  } finally {
+    bindScheduler(client)
   }
-
-  // @todo this might loop indef. if a user blocks the bot. How does it handle gateway outages?
-  bindScheduler(client)
 }
 
 function bindScheduler (client) {
   schedule = setTimeout(() => {
     scheduler(client)
-  }, 300)
+  }, 1000)
 }
 
 function unbindScheduler () {

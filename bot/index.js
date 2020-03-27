@@ -16,6 +16,7 @@ function makeMessageHandler (client) {
     try {
       await commandHandler(client, message)
     } catch (err) {
+      // @todo try notify admins in case bot is missing permissions (50013)
       Sentry.captureException(err)
     }
   }
