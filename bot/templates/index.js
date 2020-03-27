@@ -1,4 +1,5 @@
 const { formatDuration, getTypeIcon } = require('../utils')
+const packageJson = require('../../package.json')
 
 const { DISCORD_BOT_NAME } = process.env
 
@@ -7,9 +8,7 @@ const templates = {
     return `Time for a fresh start! I cleared ${isToday ? 'your daily' : 'all your'} stats`
   },
   help (commandStr) {
-    return `I am a timer bot for the **pomodoro technique**. Issue commands by sending me a direct message or mention me via \`@${DISCORD_BOT_NAME}\`.
-
-  **Available Commands**\n\n${commandStr}`
+    return `I am a timer bot for the **pomodoro technique**. Issue commands by sending me a direct message or mention me via \`@${DISCORD_BOT_NAME} {command}\`.\n\n**Available Commands**\n${commandStr}`
   },
   notFound (contextPrefix) {
     return `I did not understand that command. 😞 Type \`${contextPrefix}help\` to see a list of available commands.`
@@ -22,7 +21,7 @@ const templates = {
     return `you have a ${typeIcon} in progress. Please use \`${contextPrefix}complete\` to finish the current ${typeIcon} before starting a new one. You can also use \`${contextPrefix}restart\` to restart it`
   },
   issue () {
-    return 'you can report bugs and request features at **https://github.com/fspoettel/pomodoro-discord-bot/issues**'
+    return `you can report bugs and request features at **${packageJson.bugs}**`
   },
   reset (duration, type) {
     const typeIcon = getTypeIcon(type)
@@ -32,7 +31,7 @@ const templates = {
     const typeIcon = getTypeIcon(type)
     const durationStr = `${duration}`
     // @todo use `formatDuration` here
-    return `I started a **${durationStr.length === 1 ? '0' : ''}${durationStr}min** ${typeIcon} for you. I will message you once it completes`
+    return `I started a **${durationStr.length === 1 ? '0' : ''}${durationStr} min** ${typeIcon} for you. I will message you once it completes`
   },
   status (timeLeft, type) {
     const typeIcon = getTypeIcon(type)

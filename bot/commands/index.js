@@ -11,69 +11,84 @@ const stopCommand = require('./stop')
 
 const COMMANDS = [
   {
-    docs: '`start {min}` a 🍅 of a given duration, by default `start 25`. I will send you a direct message once it completes',
-    handler: startCommand,
-    keyword: 'start',
-    shortcuts: ['s', 'new']
-  },
-  {
-    docs: '`break {min}` starts a ☕. It is `5` minutes long by default. I will send you a message once it completes',
-    handler: makeBreakCommand(5),
-    keyword: 'shortbreak',
-    shortcuts: ['b', 'short', 'shortbreak']
-  },
-  {
-    docs: '`longbreak {min}` starts a long ☕. It is `30` minutes long by default. I will send you a message once it completes',
-    handler: makeBreakCommand(30),
-    keyword: 'longbreak',
-    shortcuts: ['lb', 'long']
-  },
-  {
-    docs: '`complete` a 🍅 or ☕ in progress',
-    handler: stopCommand,
-    keyword: 'complete',
-    shortcuts: ['c', 'stop']
-  },
-  {
-    docs: '`restart` a 🍅 or ☕ in progress',
-    handler: resetCommand,
-    keyword: 'restart',
-    shortcuts: ['r', 'reset']
-  },
-  {
-    docs: '`timeleft` displays the time left on the current 🍅 or ☕',
-    handler: statusCommand,
-    keyword: 'timeleft',
-    shortcuts: ['t', 'status']
-  },
-  {
-    docs: '`stats {today|all}` displays the amount of 🍅 and ☕ you have completed. By default, `all` stats will be shown',
-    handler: statsCommand,
-    keyword: 'stats',
-    shortcuts: []
-  },
-  {
-    docs: '`clearstats {today|all}` clears your stats. By default `all` stats will be cleared. This does not affect  🍅 or ☕ that are currently in progress',
-    handler: clearStatsCommand,
-    keyword: 'clearstats',
-    shortcuts: []
-  },
-  {
-    docs: '`help` displays this help again',
-    handler: helpCommand,
-    keyword: 'help',
-    shortcuts: ['h', 'about']
-  },
-  {
-    docs: '`issue` displays a link to the issue tracker for this bot',
-    handler: issueCommand,
-    keyword: 'issue',
-    shortcuts: []
+    title: 'Timers',
+    commands: [
+      {
+        docs: '`start {min}` a 🍅 of a given duration, by default `start 25`. I will send you a direct message once it completes',
+        handler: startCommand,
+        keyword: 'start',
+        shortcuts: ['s', 'new']
+      },
+      {
+        docs: '`break {min}` starts a ☕. It is `5` minutes long by default. I will send you a message once it completes',
+        handler: makeBreakCommand(5),
+        keyword: 'shortbreak',
+        shortcuts: ['b', 'short', 'shortbreak']
+      },
+      {
+        docs: '`longbreak {min}` starts a long ☕. It is `30` minutes long by default. I will send you a message once it completes',
+        handler: makeBreakCommand(30),
+        keyword: 'longbreak',
+        shortcuts: ['lb', 'long']
+      },
+      {
+        docs: '`timeleft` displays the time left on the current 🍅 or ☕',
+        handler: statusCommand,
+        keyword: 'timeleft',
+        shortcuts: ['t', 'status']
+      },
+      {
+        docs: '`complete` a 🍅 or ☕ in progress',
+        handler: stopCommand,
+        keyword: 'complete',
+        shortcuts: ['c', 'stop']
+      },
+      {
+        docs: '`restart` a 🍅 or ☕ in progress',
+        handler: resetCommand,
+        keyword: 'restart',
+        shortcuts: ['r', 'reset']
+      }
+    ]
+  }, {
+    title: 'Stats',
+    commands: [
+      {
+        docs: '`stats {today|all}` displays the amount of 🍅 and ☕ you have completed. By default, `all` stats will be shown',
+        handler: statsCommand,
+        keyword: 'stats',
+        shortcuts: []
+      },
+      {
+        docs: '`clearstats {today|all}` clears your stats. By default `all` stats will be cleared. This does not affect  🍅 or ☕ that are currently in progress',
+        handler: clearStatsCommand,
+        keyword: 'clearstats',
+        shortcuts: []
+      }
+    ]
+  }, {
+    title: 'Documentation',
+    commands: [
+      {
+        docs: '`help` displays this help again',
+        handler: helpCommand,
+        keyword: 'help',
+        shortcuts: ['h', 'about']
+      },
+      {
+        docs: '`issue` displays a link to the issue tracker for this bot',
+        handler: issueCommand,
+        keyword: 'issue',
+        shortcuts: ['bug']
+      }
+    ]
   }
 ]
 
 function matchCommandHandler (cmdStr) {
   const command = COMMANDS
+    .map(x => x.commands)
+    .flat()
     .find(({ keyword, shortcuts }) =>
       [keyword, ...shortcuts].some(str => str === cmdStr)
     )

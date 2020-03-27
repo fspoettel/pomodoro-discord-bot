@@ -4,6 +4,12 @@
   "main": "index.js",
   "author": "Felix Spöttel <1682504+fspoettel@users.noreply.github.com>",
   "license": "MIT",
+  "private": true,
+  "repository": {
+    "url": "https://github.com/fspoettel/pomodoro-discord-bot",
+    "type": "git"
+  },
+  "bugs": "https://github.com/fspoettel/pomodoro-discord-bot/issues",
   "scripts": {
     "dev": "nodemon index",
     "lint": "standard",
@@ -16,6 +22,9 @@
     "discord.js": "^12.0.2",
     "dotenv": "^8.2.0",
     "mongodb": "^3.5.5"
+  },
+  "engines": {
+    "node": ">=13.0.0"
   },
   "devDependencies": {
     "standard": "^14.3.3"
