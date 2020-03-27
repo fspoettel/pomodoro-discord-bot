@@ -1,5 +1,6 @@
 const clearStatsCommand = require('./clearStats')
 const helpCommand = require('./help')
+const motivationCommand = require('./motivation')
 const issueCommand = require('./issue')
 const makeBreakCommand = require('./break')
 const notFoundCommand = require('./notFound')
@@ -67,7 +68,7 @@ const COMMANDS = [
       }
     ]
   }, {
-    title: 'Documentation',
+    title: 'Documentation & Misc.',
     commands: [
       {
         docs: '`help` displays this help again',
@@ -80,6 +81,12 @@ const COMMANDS = [
         handler: issueCommand,
         keyword: 'issue',
         shortcuts: ['bug']
+      },
+      {
+        docs: '`motivation` will try its best to help with lazy days',
+        handler: motivationCommand,
+        keyword: 'motivation',
+        shortcuts: []
       }
     ]
   }
