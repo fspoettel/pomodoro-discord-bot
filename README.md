@@ -5,7 +5,7 @@
   <h1>pomodoro-discord-bot</h1>
 </div>
 
-Discord bot that enables you to use and manage [🍅 pomodoro timers](https://en.wikipedia.org/wiki/Pomodoro_Technique) within channels and direct messages. It is written in Node.js and uses MongoDB as database layer. The bot currently runs on Heroku.
+Discord bot that enables you to use and manage [🍅 pomodoro timers](https://en.wikipedia.org/wiki/Pomodoro_Technique) within channels and direct messages. It is written in Node.js and uses MongoDB as database layer. The bot currently runs on Dokku, hosted on Digital Ocean.
 
 ## Usage
 
