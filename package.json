@@ -24,9 +24,9 @@
     "mongodb": "^3.5.7"
   },
   "engines": {
-    "node": "^14.0.0"
+    "node": "16"
   },
   "devDependencies": {
-    "standard": "^14.3.3"
+    "standard": "^16.0.4"
   }
 }
