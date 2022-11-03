@@ -4,12 +4,13 @@ const {
   getHours,
   getSeconds
 } = require('date-fns')
+const { ChannelType } = require('discord.js')
 
 const { DISCORD_BOT_NAME, DISCORD_CLIENT_ID } = process.env
 
 function isDirectMessage (message) {
   const { channel } = message
-  return channel.type === 'dm'
+  return channel.type === ChannelType.DM || channel.type === ChannelType.GroupDM
 }
 
 function isFromBot (message) {
@@ -20,6 +21,10 @@ function isFromBot (message) {
 function isMentioned (message) {
   const { mentions } = message
   return !mentions.everyone && mentions.has(DISCORD_CLIENT_ID)
+}
+
+function isPartial (message) {
+  return message.partial
 }
 
 function getContextPrefix (message) {
@@ -69,5 +74,6 @@ module.exports = {
   isDirectMessage,
   isFromBot,
   isMentioned,
+  isPartial,
   parseDuration
 }

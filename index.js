@@ -14,6 +14,7 @@ const { NODE_ENV, PORT, SENTRY_DSN } = process.env;
   try {
     await initDb()
     await initBot()
+
     const count = await withDb((db, client) =>
       db.collection('timers').estimatedDocumentCount()
     )
@@ -32,6 +33,7 @@ const { NODE_ENV, PORT, SENTRY_DSN } = process.env;
       console.error(err)
     }
 
+    console.error(err)
     Sentry.captureException(err)
 
     Sentry.close(5000).then(() => {

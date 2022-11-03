@@ -17,16 +17,17 @@
     "profile": "node --inspect index"
   },
   "dependencies": {
-    "@sentry/node": "^5.15.0",
-    "date-fns": "^2.11.0",
-    "discord.js": "^12.0.2",
-    "dotenv": "^8.2.0",
-    "mongodb": "^3.5.7"
+    "@sentry/node": "^7.17.3",
+    "date-fns": "^2.29.3",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "mongodb": "^4.11.0"
   },
   "engines": {
-    "node": "16"
+    "node": "18"
   },
   "devDependencies": {
-    "standard": "^16.0.4"
+    "nodemon": "^2.0.20",
+    "standard": "^17.0.0"
   }
 }

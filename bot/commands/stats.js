@@ -1,5 +1,6 @@
 const { stats: statsTemplate } = require('../templates')
 const { getStats } = require('../../lib/pomodoro')
+const { replyToMessage } = require('../../lib/discord')
 
 async function statsCommand ({
   client,
@@ -9,7 +10,7 @@ async function statsCommand ({
   const { author } = message
   const isToday = words.includes('today')
   const stats = await getStats(author.id, isToday ? 'daily' : 'total')
-  return message.reply(statsTemplate(stats, isToday))
+  return replyToMessage(message, statsTemplate(stats, isToday))
 }
 
 module.exports = statsCommand

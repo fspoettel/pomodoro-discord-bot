@@ -1,3 +1,4 @@
+const { replyToMessage } = require('../../lib/discord')
 const { issue } = require('../templates')
 
 async function issueCommand ({
@@ -6,7 +7,7 @@ async function issueCommand ({
   message,
   words
 }) {
-  return message.reply(issue())
+  return replyToMessage(message, issue())
 }
 
 module.exports = issueCommand

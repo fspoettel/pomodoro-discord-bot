@@ -7,6 +7,7 @@ async function scheduler (client) {
   try {
     await findAndHandleFinishedPomodoros(client)
   } catch (err) {
+    console.error(err)
     Sentry.captureException(err)
   } finally {
     bindScheduler(client)

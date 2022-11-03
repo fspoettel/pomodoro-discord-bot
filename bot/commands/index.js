@@ -23,7 +23,7 @@ const COMMANDS = [
       {
         docs: '`break {min}` starts a ☕. It is `5` minutes long by default. I will send you a message once it completes',
         handler: makeBreakCommand(5),
-        keyword: 'shortbreak',
+        keyword: 'break',
         shortcuts: ['b', 'short', 'shortbreak']
       },
       {

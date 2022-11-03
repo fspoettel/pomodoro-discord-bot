@@ -1,5 +1,6 @@
 const { noInProgress, stop } = require('../templates')
 const { stopPomodoro, NoTimerError } = require('../../lib/pomodoro')
+const { replyToMessage } = require('../../lib/discord')
 const { getContextPrefix } = require('../utils')
 
 async function stopCommand ({ client, message, words }) {
@@ -8,10 +9,10 @@ async function stopCommand ({ client, message, words }) {
 
   try {
     const { type } = await stopPomodoro(author.id)
-    return message.reply(stop(contextPrefix, type))
+    return replyToMessage(message, stop(contextPrefix, type))
   } catch (err) {
     if (!(err instanceof NoTimerError)) throw err
-    return message.reply(noInProgress(contextPrefix))
+    return replyToMessage(message, noInProgress(contextPrefix))
   }
 }
 

@@ -1,4 +1,5 @@
 const { help } = require('../templates')
+const { replyToMessage } = require('../../lib/discord')
 
 async function helpCommand ({
   client,
@@ -17,7 +18,7 @@ async function helpCommand ({
       return `${acc}\n**${title}**\n\n${commandStr}`
     }, '')
 
-  return message.reply(help(template))
+  return replyToMessage(message, help(template))
 }
 
 module.exports = helpCommand
